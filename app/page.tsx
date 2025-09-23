@@ -1,31 +1,44 @@
 "use client";
 
 import { Inter } from "@next/font/google";
-import { useEffect, useState } from "react";
+import { useCompanies } from "./hooks/useCompanies";
+import { CompanyList } from "./components/CompanyList";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const [stuff1, setStuff1] = useState<any>([]);
-  useEffect(() => {
-    // declare the data fetching function
-    const fetchData = async () => {
-      const data = await fetch("/api/companies");
-      const data2 = await data.json();
-      console.log(data2);
-      setStuff1(data2);
-    };
-
-    // call the function
-    fetchData()
-      // make sure to catch any error
-      .catch(console.error);
-  }, []);
+  const { companies, loading, error } = useCompanies();
 
   return (
-    <main>
-      <h2 className={inter.className}>Quartr</h2>
-      <p className={inter.className}>Trending companies</p>
-      <p>{JSON.stringify(stuff1)}</p>
+    <main className="main-container">
+      <header className="page-header">
+        <h1 className={`page-title ${inter.className}`}>Quartr</h1>
+        <p className={`page-subtitle ${inter.className}`}>Trending companies</p>
+      </header>
+
+      <section className="companies-section">
+        {loading && (
+          <div className="loading-state">
+            <p>Loading trending companies...</p>
+          </div>
+        )}
+
+        {error && (
+          <div className="error-state">
+            <p>Error loading companies: {error}</p>
+            <button 
+              onClick={() => window.location.reload()} 
+              className="retry-button"
+            >
+              Try Again
+            </button>
+          </div>
+        )}
+
+        {!loading && !error && (
+          <CompanyList companies={companies} />
+        )}
+      </section>
     </main>
   );
 }
