@@ -1,4 +1,9 @@
 import { Company } from '../types/company';
+import { CompanyHeader } from './CompanyHeader';
+import { CompanyMeta } from './CompanyMeta';
+import { CompanyDescription } from './CompanyDescription';
+import { LatestEvent } from './LatestEvent';
+import { CompanyActions } from './CompanyActions';
 
 interface CompanyCardProps {
   company: Company;
@@ -21,48 +26,24 @@ export const CompanyCard = ({ company }: CompanyCardProps) => {
 
   return (
     <div className="company-card" style={{ borderLeftColor: colorSettings.brandColor }}>
-      <div className="company-header">
-        <div className="company-logo">
-          {logoLightUrl && (
-            <img 
-              src={logoLightUrl} 
-              alt={`${displayName} logo`}
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-              }}
-            />
-          )}
-        </div>
-        <div className="company-info">
-          <h3 className="company-name">{displayName}</h3>
-          <div className="company-meta">
-            <span className="ticker">{companyTicker}</span>
-            <span className="country">{companyCountry}</span>
-            <span className="currency">{reportingCurrency}</span>
-          </div>
-        </div>
-      </div>
+      <CompanyHeader 
+        displayName={displayName}
+        logoLightUrl={logoLightUrl}
+      />
       
-      <p className="company-description">{description}</p>
+      <CompanyMeta 
+        companyTicker={companyTicker}
+        companyCountry={companyCountry}
+        reportingCurrency={reportingCurrency}
+      />
+      
+      <CompanyDescription description={description} />
       
       {latestEvent && (
-        <div className="latest-event">
-          <h4>Latest Report</h4>
-          <p>{latestEvent.eventTitle} - {latestEvent.fiscalYear}</p>
-          <time>{new Date(latestEvent.eventDate).toLocaleDateString()}</time>
-        </div>
+        <LatestEvent event={latestEvent} />
       )}
       
-      <div className="company-actions">
-        <a 
-          href={liveUrl} 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="investor-link"
-        >
-          Investor Relations
-        </a>
-      </div>
+      <CompanyActions liveUrl={liveUrl} />
     </div>
   );
 };
