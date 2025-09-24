@@ -4,6 +4,9 @@ interface CompanyDescriptionProps {
 
 export const CompanyDescription = ({ description }: CompanyDescriptionProps) => {
   return (
-    <p className="company-description">{description}</p>
+    <div className="company-description-container">
+      <span className="sr-only">Company description: </span>
+      <p className="company-description">{description}</p>
+    </div>
   );
 };

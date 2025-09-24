@@ -27,3 +27,9 @@ jest.mock('next/router', () => ({
 global.fetch = jest.fn()
 
 // Mock window.location.reload - only when needed in specific tests
+
+// Setup jest-axe
+import 'jest-axe/extend-expect'
+
+// Mock scrollIntoView
+Element.prototype.scrollIntoView = jest.fn()

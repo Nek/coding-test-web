@@ -5,11 +5,22 @@ interface LatestEventProps {
 }
 
 export const LatestEvent = ({ event }: LatestEventProps) => {
+  const eventDate = new Date(event.eventDate);
+  const formattedDate = eventDate.toLocaleDateString();
+  const isoDate = eventDate.toISOString().split('T')[0];
+  
   return (
-    <div className="latest-event">
-      <h4>Latest Report</h4>
-      <p>{event.eventTitle} - {event.fiscalYear}</p>
-      <time>{new Date(event.eventDate).toLocaleDateString()}</time>
-    </div>
+    <section className="latest-event" aria-labelledby="latest-report-heading">
+      <h4 id="latest-report-heading">Latest Report</h4>
+      <p aria-label={`Report: ${event.eventTitle} for fiscal year ${event.fiscalYear}`}>
+        {event.eventTitle} - {event.fiscalYear}
+      </p>
+      <time 
+        dateTime={isoDate}
+        aria-label={`Report date: ${formattedDate}`}
+      >
+        {formattedDate}
+      </time>
+    </section>
   );
 };

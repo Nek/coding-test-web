@@ -25,10 +25,26 @@ export const CompanyCard = ({ company }: CompanyCardProps) => {
   const latestEvent = events[0];
 
   return (
-    <div className="company-card" style={{ borderLeftColor: colorSettings.brandColor }}>
+    <article 
+      className="company-card" 
+      style={{ borderLeftColor: colorSettings.brandColor }}
+      aria-labelledby={`company-${company.companyId}-name`}
+      role="article"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const link = e.currentTarget.querySelector('.investor-link') as HTMLAnchorElement;
+          if (link) {
+            link.click();
+          }
+        }
+      }}
+    >
       <CompanyHeader 
         displayName={displayName}
         logoLightUrl={logoLightUrl}
+        companyId={company.companyId}
       />
       
       <CompanyMeta 
@@ -43,7 +59,7 @@ export const CompanyCard = ({ company }: CompanyCardProps) => {
         <LatestEvent event={latestEvent} />
       )}
       
-      <CompanyActions liveUrl={liveUrl} />
-    </div>
+      <CompanyActions liveUrl={liveUrl} companyName={displayName} />
+    </article>
   );
 };
