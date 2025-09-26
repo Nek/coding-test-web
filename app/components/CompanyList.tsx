@@ -1,5 +1,5 @@
-import { Company } from '../types/company';
-import { CompanyCard } from './CompanyCard';
+import { Company } from "../types/company";
+import { CompanyCard } from "./CompanyCard";
 
 interface CompanyListProps {
   companies: Company[];
@@ -15,15 +15,15 @@ export const CompanyList = ({ companies }: CompanyListProps) => {
   }
 
   return (
-    <div 
-      className="company-list" 
-      role="feed" 
+    <div
+      className="company-list"
+      role="feed"
       aria-label={`${companies.length} trending companies`}
       aria-busy="false"
     >
       {companies.map((company, index) => (
-        <CompanyCard 
-          key={company.companyId} 
+        <CompanyCard
+          key={company.companyId}
           company={company}
           aria-posinset={index + 1}
           aria-setsize={companies.length}

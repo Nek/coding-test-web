@@ -1,9 +1,5 @@
-import { Company } from '../types/company';
-import { CompanyHeader } from './CompanyHeader';
-import { CompanyMeta } from './CompanyMeta';
-import { CompanyDescription } from './CompanyDescription';
-import { LatestEvent } from './LatestEvent';
-import { CompanyActions } from './CompanyActions';
+import { Company } from "../types/company";
+import { CompanyLogo } from "./CompanyLogo";
 
 interface CompanyCardProps {
   company: Company;
@@ -12,54 +8,45 @@ interface CompanyCardProps {
 export const CompanyCard = ({ company }: CompanyCardProps) => {
   const {
     displayName,
-    companyTicker,
-    companyCountry,
     description,
     logoLightUrl,
     colorSettings,
-    reportingCurrency,
-    events,
-    liveUrl
+    liveUrl,
+    companyId,
   } = company;
 
-  const latestEvent = events[0];
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLAnchorElement>) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      window.open(liveUrl, "_blank", "noopener,noreferrer");
+    }
+  };
 
   return (
-    <article 
-      className="company-card" 
-      style={{ borderLeftColor: colorSettings.brandColor }}
-      aria-labelledby={`company-${company.companyId}-name`}
-      role="article"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          const link = e.currentTarget.querySelector('.investor-link') as HTMLAnchorElement;
-          if (link) {
-            link.click();
-          }
-        }
-      }}
+    <a
+      href={liveUrl}
+      target="_blank"
+      id={`company-${company.companyId}-name`}
+      rel="noopener noreferrer"
+      aria-label={`Visit ${displayName} investor relations page (opens in new tab)`}
     >
-      <CompanyHeader 
-        displayName={displayName}
-        logoLightUrl={logoLightUrl}
-        companyId={company.companyId}
-      />
-      
-      <CompanyMeta 
-        companyTicker={companyTicker}
-        companyCountry={companyCountry}
-        reportingCurrency={reportingCurrency}
-      />
-      
-      <CompanyDescription description={description} />
-      
-      {latestEvent && (
-        <LatestEvent event={latestEvent} />
-      )}
-      
-      <CompanyActions liveUrl={liveUrl} companyName={displayName} />
-    </article>
+      <article
+        className="company-card"
+        style={{ borderLeftColor: colorSettings.brandColor }}
+        aria-labelledby={`company-${company.companyId}-name`}
+        role="article"
+        tabIndex={0}
+        onKeyDown={handleKeyDown}
+      >
+        <CompanyLogo displayName={displayName} logoLightUrl={logoLightUrl} />
+
+        <div className="company-info">
+          <h3 className="company-name" id={`company-${companyId}-name`}>
+            {displayName}
+          </h3>
+          <p className="company-description">{description}</p>
+        </div>
+      </article>
+    </a>
   );
 };

@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>Trending companies</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                --bg: #ffffff;
+                --text: ##999999;
+                --muted: ##999999; /* heading + subtitle */
+                --divider: #eeeeee;
+                --accent: #ff6f2d;
+
+                /* Layout tuned to match Figma white canvas */
+                --left-offset: 120px; /* distance from viewport left to column */
+                --right-offset: 120px; /* distance from viewport right to column */
+
+                --column-width: 100%; /* list width */
+                --gap: 16px; /* icon->text gap */
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+            body {
+                margin: 0;
+                background: var(--bg);
+                font-family: "Inter", sans-serif;
+                font-optical-sizing: auto;
+                font-weight: 400;
+                font-style: regular;
+            }
+
+            /* Fixed column anchored from the left (NOT centered) */
+            .column {
+                width: auto;
+                margin-left: var(--left-offset);
+                margin-right: var(--right-offset);
+            }
+
+            /* Heading */
+            .heading {
+                padding-top: 22px;
+                margin: 0 0 12px 0;
+                font-weight: 400;
+                style: regular;
+                font-size: 16px;
+                color: #999999;
+                margin: 0;
+            }
+
+            /* List */
+            .company-list {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                border-radius: 8px;
+            }
+
+            .company-row {
+                display: flex;
+                align-items: center;
+                min-height: 64px; /* row height like Figma */
+                padding: 12px 0;
+                position: relative;
+                text-decoration: none;
+                color: inherit;
+                border-bottom: 1px solid var(--divider);
+            }
+
+            .company-row:hover {
+                background: rgba(0, 0, 0, 0.02);
+            }
+            .company-row:focus {
+                outline: none;
+            }
+            .company-row:focus-visible {
+                outline: 3px solid rgba(66, 133, 244, 0.16);
+                outline-offset: 2px;
+            }
+
+            /* Icon 48x48 with 8px radius */
+            .company-icon {
+                flex: 0 0 40px;
+                width: 40px;
+                height: 40px;
+                border-radius: 16px;
+                background: var(--accent);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: var(--gap);
+            }
+            .company-icon svg {
+                width: 28px;
+                height: 20px;
+                display: block;
+            }
+
+            /* Text */
+            .company-body {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+                min-width: 0; /* enable truncation */
+            }
+            .company-title {
+                font-size: 16px;
+                line-height: 100%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                color: #010101;
+            }
+            .company-sub {
+                font-size: 13px;
+                color: #999999;
+                line-height: 16px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            /* Chevron */
+            .chev {
+                margin-left: auto;
+                color: #d0d0d0;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .chev svg {
+                width: 16px;
+                height: 16px;
+                display: block;
+            }
+
+            /* Responsive safety so it still works on small screens */
+            @media (max-width: 980px) {
+                .column {
+                    width: min(760px, calc(100vw - 32px));
+                    margin-left: 16px;
+                    margin-right: 16px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+            <main class="column" aria-labelledby="trend-head">
+                <h2 id="trend-head" class="heading">Trending companies</h2>
+
+                <ul class="company-list" role="list">
+                    <li>
+                        <a
+                            class="company-row"
+                            href="#"
+                            aria-label="Open SoundCloud"
+                        >
+                            <span class="company-icon" aria-hidden="true">
+                            </span>
+
+                            <span class="company-body">
+                                <span class="company-title">Soundcloud</span>
+                                <span class="company-sub"
+                                    >Lorem ipsum dolor sit amet....</span
+                                >
+                            </span>
+
+                            <span class="chev" aria-hidden="true">
+                                <svg
+                                    width="8"
+                                    height="14"
+                                    viewBox="0 0 8 14"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M1 13L7 7L1 1"
+                                        stroke="#999999"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    />
+                                </svg>
+                            </span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a
+                            class="company-row"
+                            href="#"
+                            aria-label="Open SoundCloud"
+                        >
+                            <span class="company-icon" aria-hidden="true">
+                            </span>
+
+                            <span class="company-body">
+                                <span class="company-title">Soundcloud</span>
+                                <span class="company-sub"
+                                    >Lorem ipsum dolor sit amet....</span
+                                >
+                            </span>
+
+                            <span class="chev" aria-hidden="true">
+                                <svg
+                                    width="8"
+                                    height="14"
+                                    viewBox="0 0 8 14"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M1 13L7 7L1 1"
+                                        stroke="#999999"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    />
+                                </svg>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </main>
+        </div>
+</html>
